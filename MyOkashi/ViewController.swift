@@ -93,6 +93,8 @@ class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSourc
                 
                 // お菓子の情報が取得できているか確認
                 if let items = json.item {
+                    // お菓子のリストを初期化
+                    self.okashiList.removeAll()
                     // 取得しているお菓子の数だけ処理
                     for item in items {
                         // お菓子の名称、メーカー名、掲載URL、画像URLをアンラップ
@@ -103,6 +105,9 @@ class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSourc
                             self.okashiList.append(okashi)
                         }
                     }
+                    // Table Viewを更新する
+                    self.tableView.reloadData()
+                    
                     if let okashidbg = self.okashiList.first {
                         print ("----------")
                         print ("okashiList[0] = \(okashidbg)")
@@ -115,6 +120,27 @@ class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSourc
         })
         // ダウンロード開始
         task.resume()
+    }
+    
+    // Cellの総数を返すdatasourceメソッド、必ず記述する必要があります
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // お菓子リストの総数
+        return okashiList.count
+    }
+    
+    // Cellに値を設定するdatasourceメソッド。必ず記述する必要があります
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // 今回表示を行う、Cellオブジェクト(1行)を取得する
+        let cell = tableView.dequeueReusableCell(withIdentifier: "okashiCell", for: indexPath)
+        // お菓子のタイトル設定
+        cell.textLabel?.text = okashiList[indexPath.row].name
+        // お菓子画像を取得
+        if let imageData = try? Data(contentsOf: okashiList[indexPath.row].image) {
+            // 正常に取得できた場合は、UIImageで画像オブジェクトを生成して、Cellにお菓子画像を設定
+            cell.imageView?.image = UIImage(data: imageData)
+        }
+        // 設定済みのCellオブジェクトを画面に反映
+        return cell
     }
 }
 
