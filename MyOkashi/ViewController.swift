@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController UISearchBarDelegate {
+class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,8 @@ class ViewController: UIViewController UISearchBarDelegate {
         searchText.delegate = self
         // 入力のヒントになる、プレースホルダを設定
         searchText.placeholder = "お菓子の名前を入力してください"
+        // Table ViewのdataSourceを設定
+        TableView.dataSource = self
     }
 
     @IBOutlet weak var searchText: UISearchBar!
