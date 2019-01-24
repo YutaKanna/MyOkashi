@@ -89,7 +89,23 @@ class ViewController: UIViewController UISearchBarDelegate {
                 // 受け取ったJSONデータをパース(解析)して格納
                 let json = try decoder.decode(ResultJson.self, from: data!)
                 
-                print(json)
+                // お菓子の情報が取得できているか確認
+                if let items = json.item {
+                    // 取得しているお菓子の数だけ処理
+                    for item in items {
+                        // お菓子の名称、メーカー名、掲載URL、画像URLをアンラップ
+                        if let name = item.name , let maker = item.maker , let link = item.url , let image = item.image {
+                            // 1つのお菓子をタプルでまとめて管理
+                            let okashi = (name,maker,link,image)
+                            // お菓子の配列へ追加
+                            self.okashiList.append(okashi)
+                        }
+                    }
+                    if let okashidbg = self.okashiList.first {
+                        print ("----------")
+                        print ("okashiList[0] = \(okashidbg)")
+                    }
+                }
             } catch {
                 // エラー処理
                 print("エラーが出ました")
