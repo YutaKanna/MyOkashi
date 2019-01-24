@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSource {
+class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, SFSafariViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,8 @@ class ViewController: UIViewController UISearchBarDelegate, UITableViewDataSourc
         searchText.placeholder = "お菓子の名前を入力してください"
         // Table ViewのdataSourceを設定
         TableView.dataSource = self
+        // Table Viewのdelegateを設定
+        tableView.delegate = self
     }
 
     @IBOutlet weak var searchText: UISearchBar!
