@@ -37,6 +37,23 @@ class ViewController: UIViewController UISearchBarDelegate {
             searchOkashi(keyword: searchWord)
         }
     }
+    // JSONのitem内のデータ構造
+    struct ItemJson: Codable {
+        // お菓子の名称
+        let name: String?
+        // メーカー
+        let maker: String?
+        // 掲載URL
+        let url: URL?
+        // 画像URL
+        let image: URL?
+    }
+    
+    // JSONのデータ構造
+    struct ResultJson: Codable {
+        //複数要素
+        let item:[ItemJson]?
+    }
     
     // searchOkashiメソッド
     // 第一引数 : keyword 検索したいワード
