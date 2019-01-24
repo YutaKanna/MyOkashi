@@ -25,6 +25,9 @@ class ViewController: UIViewController UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
+    // お菓子のリスト (タプル配列)
+    var okashiList : [(name:String , maker:String , link:URL , image:URL)] = []
+    
     // 検索ボタンをクリック(タップ) 時
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
